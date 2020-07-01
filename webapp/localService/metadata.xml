@@ -1,0 +1,50 @@
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+	xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:sap="http://www.sap.com/Protocols/SAPData" Version="1.0">
+	<edmx:Reference xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
+		Uri="https://eas-dev.tgsn.org:443/sap/opu/odata/IWFND/CATALOGSERVICE;v=2/Vocabularies(TechnicalName='%2FIWBEP%2FVOC_COMMON',Version='0001',SAP__Origin='LOCAL')/$value"><edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/></edmx:Reference>
+	<edmx:DataServices m:DataServiceVersion="2.0">
+		<Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="Z_SALEGRUP_MANAGE_SRV" xml:lang="en" sap:schema-version="1">
+			<EntityType Name="I_SalesOfficeType" sap:label="Sales Office" sap:content-version="1">
+				<Key><PropertyRef Name="SalesOffice"/></Key><Property Name="SalesOffice" Type="Edm.String" Nullable="false" MaxLength="4" sap:display-format="UpperCase" sap:text="SalesOffice_Text"
+					sap:label="Sales Office"/><Property Name="SalesOffice_Text" Type="Edm.String" MaxLength="20" sap:label="Sales Office Description" sap:creatable="false"
+					sap:updatable="false"/></EntityType>
+			<EntityType Name="Z_c_salesgroupassignType" sap:label="Consumption view create salesgroup" sap:content-version="1">
+				<Key><PropertyRef Name="SalesGroup"/></Key><Property Name="SalesGroup" Type="Edm.String" Nullable="false" MaxLength="3" sap:display-format="UpperCase" sap:label="Sales Group"/><Property Name="SalesGroupName" Type="Edm.String" MaxLength="20" sap:label="Sales Group Description"/><Property Name="SalesOffice" Type="Edm.String" MaxLength="4" sap:display-format="UpperCase" sap:text="to_SalesOffice/SalesOffice_Text"
+					sap:label="Sales Office" sap:value-list="standard"/><NavigationProperty Name="to_SalesOffice" Relationship="Z_SALEGRUP_MANAGE_SRV.assoc_383045CD5FF584F8D4EBFF9E71FF21AA"
+					FromRole="FromRole_assoc_383045CD5FF584F8D4EBFF9E71FF21AA" ToRole="ToRole_assoc_383045CD5FF584F8D4EBFF9E71FF21AA"/></EntityType>
+			<Association Name="assoc_383045CD5FF584F8D4EBFF9E71FF21AA" sap:content-version="1"><End Type="Z_SALEGRUP_MANAGE_SRV.Z_c_salesgroupassignType" Multiplicity="1" Role="FromRole_assoc_383045CD5FF584F8D4EBFF9E71FF21AA"/><End Type="Z_SALEGRUP_MANAGE_SRV.I_SalesOfficeType" Multiplicity="0..1" Role="ToRole_assoc_383045CD5FF584F8D4EBFF9E71FF21AA"/>
+				<ReferentialConstraint>
+					<Principal Role="ToRole_assoc_383045CD5FF584F8D4EBFF9E71FF21AA"><PropertyRef Name="SalesOffice"/></Principal>
+					<Dependent Role="FromRole_assoc_383045CD5FF584F8D4EBFF9E71FF21AA"><PropertyRef Name="SalesOffice"/></Dependent>
+				</ReferentialConstraint>
+			</Association>
+			<EntityContainer Name="Z_SALEGRUP_MANAGE_SRV_Entities" m:IsDefaultEntityContainer="true" sap:supported-formats="atom json xlsx"><EntitySet Name="I_SalesOffice" EntityType="Z_SALEGRUP_MANAGE_SRV.I_SalesOfficeType" sap:creatable="false" sap:updatable="false"
+				sap:deletable="false" sap:content-version="1"/><EntitySet Name="Z_c_salesgroupassign" EntityType="Z_SALEGRUP_MANAGE_SRV.Z_c_salesgroupassignType" sap:deletable="false"
+				sap:searchable="true" sap:content-version="1"/>
+				<AssociationSet Name="assoc_383045CD5FF584F8D4EBFF9E71FF21AA" Association="Z_SALEGRUP_MANAGE_SRV.assoc_383045CD5FF584F8D4EBFF9E71FF21AA"
+					sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1"><End EntitySet="Z_c_salesgroupassign" Role="FromRole_assoc_383045CD5FF584F8D4EBFF9E71FF21AA"/><End EntitySet="I_SalesOffice" Role="ToRole_assoc_383045CD5FF584F8D4EBFF9E71FF21AA"/></AssociationSet>
+			</EntityContainer>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="Z_SALEGRUP_MANAGE_SRV.Z_c_salesgroupassignType/SalesOffice">
+				<Annotation Term="Common.ValueList">
+					<Record><PropertyValue Property="Label" String="Sales Office"/><PropertyValue Property="CollectionPath" String="I_SalesOffice"/><PropertyValue Property="SearchSupported" Bool="false"/>
+						<PropertyValue Property="Parameters">
+							<Collection>
+								<Record Type="Common.ValueListParameterInOut"><PropertyValue Property="LocalDataProperty" PropertyPath="SalesOffice"/><PropertyValue Property="ValueListProperty" String="SalesOffice"/></Record>
+								<Record Type="Common.ValueListParameterDisplayOnly"><PropertyValue Property="ValueListProperty" String="SalesOffice_Text"/></Record>
+							</Collection>
+						</PropertyValue>
+					</Record>
+				</Annotation>
+			</Annotations>
+			<Annotations xmlns="http://docs.oasis-open.org/odata/ns/edm" Target="Z_SALEGRUP_MANAGE_SRV.Z_c_salesgroupassignType">
+				<Annotation Term="Common.SemanticKey">
+					<Collection>
+						<PropertyPath>SalesGroup</PropertyPath>
+						<PropertyPath>SalesOffice</PropertyPath>
+					</Collection>
+				</Annotation>
+			</Annotations><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="self"
+				href="https://eas-dev.tgsn.org:443/sap/opu/odata/sap/Z_SALEGRUP_MANAGE_SRV/$metadata"/><atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="latest-version"
+				href="https://eas-dev.tgsn.org:443/sap/opu/odata/sap/Z_SALEGRUP_MANAGE_SRV/$metadata"/></Schema>
+	</edmx:DataServices>
+</edmx:Edmx>
